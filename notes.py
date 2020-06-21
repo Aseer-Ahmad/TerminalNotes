@@ -3,24 +3,33 @@ import re
 import os
 
 def writeNote(basepath):
-	print('\nBEGIN NOTES HERE [Write \'done\' to SAVE]\nTo save with filename [WRITE	\'done[_filename_]\'] \n=======================================')
+	print('\nBEGIN NOTES HERE [Write \'done\' to SAVE / \'discard\' to delete]\nTo save with filename [WRITE done[_filename]]\n=============================================================')
 	t = datetime.datetime.now()
 	s = ''
 	while True:
 		print("> ", end = "")
 		temp = str(input())
 		if temp == 'done':
+			saveNote(basepath, s, t)
 			break
 		elif len(temp) > 4 and temp[:5] == 'done[':
 			reg = r'\[.*\]'
 			try:
 				t = re.search(reg, temp).group()[1:-1]
+				if t == '':
+					t = 1
+				saveNote(basepath, s, t)
 				break
 			except:
 				t = None
-				break			
-		s += temp + '\n'
-		
+				saveNote(basepath, s, t)
+				break	
+		elif temp == 'discard' and len(temp) == 7:
+			print('\nDiscarding note...\n')
+			break
+		s += temp + '\n'	
+	
+def saveNote(basepath, s, t):
 	_path = basepath + "/Notes/"+str(t) + ".txt"
 	_path = _path.replace(' ', '_') 
 	if t == None:
@@ -38,6 +47,7 @@ def writeNote(basepath):
 def showAll(basepath):
 	'''
 	Improve later by filtering with time range(week, last month, last 3 months..etc)
+	Add infinite loop for reading whole content
 	'''
 	_path = basepath + "/Notes/"
 	sl, f, c = 'Sl.', 'FILENAME', 'CONTENT'
@@ -45,14 +55,29 @@ def showAll(basepath):
 	print('-'*75)
 	for i, f in enumerate(os.listdir(_path), 1):
 		with open(_path + f, 'r') as _file:
-			content = _file.read()[:30].replace('\n', '')
+			content = _file.read()[:50].replace('\n', '')
 		print(f'{str(i): <4} {f : <35} {content}')		
-	print()
+	
+	flag = True
+	while flag:	
+		print("\nEnter Sl no. to read a MEMO, 0 otherwise>>> ", end = "")
+		n = int(input())
+		for i, f in enumerate(os.listdir(_path), 1):
+			if n == i:
+				print(f'Reading from [{f}]...\n')
+				readFile(_path + f)
+		if n > i:
+			print('Invalid serial no.')
+		if n == 0:
+			flag = False
+			
+def readFile(_path):
+	with open(_path, 'r') as f:
+		print(f.read().strip())
 	
 if __name__ == '__main__':
-	#by KEYWORD <- display file names with the keyword
+	#by FILENAME <- display file names with the keyword
 	#by CONTENT <- display file names along with a small excerpt from files
-	#			   or display only a potion of file content 
 	#by CONTENT <- give option to search content for [links/ all]
 	base_path = '/'.join(os.getcwd().split('/')[:3]) 
 	flag = True
