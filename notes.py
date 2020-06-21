@@ -40,8 +40,9 @@ def showAll(basepath):
 	Improve later by filtering with time range(week, last month, last 3 months..etc)
 	'''
 	_path = basepath + "/Notes/"
-	sl, f, c = 'SL', 'FILENAME', 'CONTENT'
-	print(f'{sl: <4} {f: <35} {c}')
+	sl, f, c = 'Sl.', 'FILENAME', 'CONTENT'
+	print(f'{sl: <4}| {f: <35}| {c}')
+	print('-'*75)
 	for i, f in enumerate(os.listdir(_path), 1):
 		with open(_path + f, 'r') as _file:
 			content = _file.read()[:30].replace('\n', '')
