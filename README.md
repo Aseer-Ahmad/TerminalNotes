@@ -16,5 +16,5 @@ We simply have to add a $PATH to .bashrc file.
 One can accomplish this by using the helper.py.   
 But before running it, keep both the scripts at the same location.
 
-Now open your terminal and run helper.py
+Now open your terminal and run helper.py      
 $ python helper.py
