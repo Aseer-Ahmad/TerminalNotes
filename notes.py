@@ -9,6 +9,7 @@ def writeNote(basepath):
 	while True:
 		print("> ", end = "")
 		temp = str(input())
+		
 		if temp == 'done':
 			saveNote(basepath, s, t)
 			break
@@ -27,13 +28,13 @@ def writeNote(basepath):
 		elif temp == 'discard' and len(temp) == 7:
 			print('\nDiscarding note...\n')
 			break
+			
 		s += temp + '\n'	
 	
 def saveNote(basepath, s, t):
 	_path = basepath + "/Notes/"+str(t) + ".txt"
 	_path = _path.replace(' ', '_') 
 	if t == None:
-		#file name not found
 		t = datetime.datetime.now()
 		_path = basepath + "/Notes/"+str(t)+".txt"
 		_path = _path.replace(' ', '_')
@@ -48,11 +49,13 @@ def showAll(basepath):
 	'''
 	Improve later by filtering with time range(week, last month, last 3 months..etc)
 	Add infinite loop for reading whole content
+	
+	Also previewing memo, give option to append to it
 	'''
 	_path = basepath + "/Notes/"
 	sl, f, c = 'Sl.', 'FILENAME', 'CONTENT'
 	print(f'{sl: <4}| {f: <35}| {c}')
-	print('-'*75)
+	print('-'*90)
 	for i, f in enumerate(os.listdir(_path), 1):
 		with open(_path + f, 'r') as _file:
 			content = _file.read()[:50].replace('\n', '')
@@ -94,6 +97,4 @@ if __name__ == '__main__':
 		except ValueError as e:
 			print(e.__class__, "ENTER VALUE or EXIT!\n")			
 			
-			
-			
-			
+					
