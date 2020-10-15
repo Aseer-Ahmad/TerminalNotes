@@ -27,12 +27,15 @@ $ gedit ~/.bashrc
 Now, go to the last line and write:
 PATH=$PATH:/home/{username}/bin
 
-Now back in terminal execute the following commands:    
-  $ source .bashrc    
-  $ source .profile   
+Now back in terminal execute the following commands:   
+  $ source ~/.bashrc
+  $ source ~/.profile
   $ . ~/.bashrc
 
 AND IT's DONE!!
 Just open a new terminal anywhere and type  <note> to begin.
 
+PS: if a permission denied error comes up, go to /home/{username}/bin directory.
+Open terminal and write the following:
+$ chmod 744 note
 
