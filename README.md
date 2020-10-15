@@ -28,7 +28,8 @@ Now, go to the last line and write:
 PATH=$PATH:/home/{username}/bin
 
 Now back in terminal execute the following commands:   
-  $ source ~/.bashrc 
+  $ source ~/.bashrc
+  
   $ source ~/.profile   
   $ . ~/.bashrc
 
